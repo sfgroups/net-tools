@@ -93,8 +93,12 @@ try {
         */
         if (env.BRANCH_NAME == null) {
             stage('Publish docker image') {
-                infra.withDockerCredentials {
-                    timestamps { container.push() }
+                 docker.withRegistry('https://hub.docker.com', 'dockerhub') {                     
+             container.push()
+            container.push("latest")
+        
+        
+                    
                 }
             }
         }
