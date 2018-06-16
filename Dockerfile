@@ -1,17 +1,14 @@
 FROM nginx:1.15.0-alpine
 
-RUN apk add --no-cache wget tcpdump bash curl bind-tools openssl supervisor openssh-server
-
 ENV TERM=xterm \
     PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH}"
 
-RUN mkdir -p /run/nginx /var/run/sshd /var/log/supervisor  /root/.ssh /var/www/html
-RUN echo 'root:password' | chpasswd
+RUN apk add --no-cache wget tcpdump bash curl bind-tools openssl supervisor openssh-server && \
+    mkdir -p /run/nginx /var/run/sshd /var/log/supervisor  /root/.ssh /var/www/html && \
+    echo 'root:password' | chpasswd
 
 COPY server_run.sh /sbin
-COPY supervisor.ini /etc/supervisor.d/
-COPY supervisor-sshd.ini /etc/supervisor.d/
-COPY supervisor-nginx.ini /etc/supervisor.d/
+COPY supervisor-nginx.ini supervisor-sshd.ini supervisor.ini /etc/supervisor.d/
 RUN chmod a+x /sbin/server_run.sh
 
 COPY sshd_config /etc/ssh/
