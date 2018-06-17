@@ -127,9 +127,11 @@ manager.createSummary("gear2.gif").appendText("<h2>Successfully deployed</h2>", 
 
                 stage('Cleanup') {
                     echo 'prune and cleanup'
+                    /*
                     mail from: fromemail, replyTo: toemail, to: toemail,
                             subject: 'project build successful',
                             body: 'project build successful'
+                            */
                 }
             }
         }
@@ -137,13 +139,14 @@ manager.createSummary("gear2.gif").appendText("<h2>Successfully deployed</h2>", 
 }
 catch (exc) {
     echo "Caught: ${exc}"
-    currentBuild.result = "FAILURE"   
+    currentBuild.result = "FAILURE"  
+    /* 
     mail subject: "${env.JOB_NAME} (${env.BUILD_NUMBER}) failed",
             body: "It appears that ${env.BUILD_URL} is failing, somebody should do something about that",
             to: toemail,
             replyTo: toemail,
             from: fromemail
-
+*/
     /* Rethrow to fail the Pipeline properly */
     throw exc
 }
