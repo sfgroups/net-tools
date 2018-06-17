@@ -115,7 +115,7 @@ manager.createSummary("gear2.gif").appendText("<h2>Successfully deployed</h2>", 
                     */
                     if (env.BRANCH_NAME == null) {
                         stage('Publish docker image') {
-                            docker.withRegistry('https://hub.docker.com', 'dockerhub') {
+                             docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
                                 container.push()
                                 container.push("latest")
 
