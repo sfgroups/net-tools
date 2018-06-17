@@ -46,9 +46,10 @@ try {
                 echo "Building Job at ${workspace}"
 
                 /* def workspace = manager.build.getEnvVars()["WORKSPACE"]
-                 String fileContents = new File('${workspace}/filename.txt').text*/
-                manager.createSummary("folder.gif").appendText("TEst messsage")
-
+                 String fileContents = new File('${workspace}/filename.txt').text
+                manager.addShortText("deployed")
+manager.createSummary("gear2.gif").appendText("<h2>Successfully deployed</h2>", false)
+*/
                 stage('Clean workspace') {
                     /* Running on a fresh Docker instance makes this redundant, but just in
                     * case the host isn't configured to give us a new Docker image for every
