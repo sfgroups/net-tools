@@ -82,6 +82,9 @@ manager.createSummary("gear2.gif").appendText("<h2>Successfully deployed</h2>", 
                     * when not in multibranch: https://issues.jenkins-ci.org/browse/JENKINS-31386
                     */
                     checkout scm
+
+                    files = findFiles(glob: '**/.dsl')
+                    println files[0].name
                 }
 
                 stage('Build site') {
