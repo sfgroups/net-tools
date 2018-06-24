@@ -45,6 +45,17 @@ try {
                 def workspace = pwd()
                 echo "Building Job at ${workspace}"
 
+                stage("init") {
+
+                    dir("${HOME}/bin")
+                    httpRequest ignoreSslErrors: true, outputFile: '/tmp/helm.tar.gz', responseHandle: 'NONE', url: 'https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-linux-amd64.tar.gz'
+                    fileOperations([fileUnTarOperation(filePath: '/tmp/helm.tar.gz', isGZIP: true, targetLocation: '/tmp')])
+
+                    sh "cp -f /tmp/linux-amd64/helm ${HOME}/bin"
+
+                    dir("${workspace}")
+                }
+
                 /* def workspace = manager.build.getEnvVars()["WORKSPACE"]
                  String fileContents = new File('${workspace}/filename.txt').text
                 manager.addShortText("deployed")
@@ -57,6 +68,8 @@ manager.createSummary("gear2.gif").appendText("<h2>Successfully deployed</h2>", 
                     */
                     deleteDir()
                     sh 'ls -lah'
+
+
                 }
 
                 stage('Per-build') {
