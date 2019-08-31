@@ -1,7 +1,0 @@
-applicaton:
-    group: NodeJS sample application
-    applicationId: nodejsapp
-    appid: 345
-Servers: 
-    DEV:
-      - webserver

@@ -1,4 +1,4 @@
-FROM nginx:1.15.0-alpine
+FROM nginx:alpine
 
 ENV TERM=xterm \
     PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH}"
