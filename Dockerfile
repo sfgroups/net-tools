@@ -3,11 +3,12 @@ FROM nginx:alpine
 ENV TERM=xterm \
     PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH}"
 
-RUN apk add --no-cache wget tcpdump bash curl bind-tools openssl supervisor openssh-server && \
+RUN apk add --no-cache iproute2 jq nmap wget tcpdump bash curl bind-tools openssl supervisor openssh openssh-server mtr procps && \
     mkdir -p /run/nginx /var/run/sshd /var/log/supervisor  /root/.ssh /var/www/html && \
     echo 'root:password' | chpasswd
 
 COPY server_run.sh /sbin
+RUN mkdir -p -m 755 /etc/supervisor.d
 COPY supervisor-nginx.ini supervisor-sshd.ini supervisor.ini /etc/supervisor.d/
 RUN chmod a+x /sbin/server_run.sh
 
